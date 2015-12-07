@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<!DOCTYPE html> 
 <html>
 	<head>
 		<%@include file="/jsp/head.jsp" %>
@@ -10,9 +10,11 @@
 	
 	<s:actionerror cssStyle="font-style:bold;background-color:#ff6e6e;width:95%"/>
 	
-		<s:form action="fileDownloadAction" theme="simple">					
-			<s:submit key="response" method="response"/>
-			<s:submit key="result" method="resultStream"/>
+		<s:form action="fileDownloadResponse" theme="simple">					
+			<s:submit key="response"/>
+		</s:form>
+		<s:form action="fileDownloadStream" theme="simple">					
+			<s:submit key="result"/>
 		</s:form>
 		<%@include file="/jsp/footer.jsp" %>
 	</body>

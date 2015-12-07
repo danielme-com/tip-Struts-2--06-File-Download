@@ -26,8 +26,6 @@ public class FileDownloadAction extends ActionSupport
 	private static final long serialVersionUID = 1L;
 
 	private static final String PATH = ServletActionContext.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "test.pdf";
-
-	private static final String FORM = "form";
 	
 	private static final Logger LOGGER = Logger.getLogger(FileDownloadAction.class);
 	
@@ -40,7 +38,7 @@ public class FileDownloadAction extends ActionSupport
 	
 	public String execute()
 	{
-		return FORM;
+		return INPUT;
 	}
 
 
@@ -60,7 +58,7 @@ public class FileDownloadAction extends ActionSupport
 			//attachment: el fichero se ofrece para descargar
 			//inline: se solicita al navegador que lo abra él mismo si tiene el plugin adecuado
 			//o puede mostrar el tipo de archivo
-			response.setHeader("Content-Disposition", "attachment; filename=test.pdf");
+			response.setHeader("Content-Disposition", "attachment; filename=\"test.pdf\"");
 	
 			ServletOutputStream out = response.getOutputStream();
 			out.write(result);
@@ -70,9 +68,9 @@ public class FileDownloadAction extends ActionSupport
 		{
 			LOGGER.error(ex.getMessage(), ex);
 			addActionError(ex.getMessage());
-			return FORM;
+			return INPUT;
 		}
-		return null;
+		return NONE;
 	}
 
 	public String resultStream() 
@@ -86,7 +84,7 @@ public class FileDownloadAction extends ActionSupport
 		{
 			LOGGER.error(ex.getMessage(), ex);
 			addActionError(ex.getMessage());
-			return FORM;
+			return INPUT;
 		}
 		this.contentLength = file.length();
 		this.contentName = "test.pdf";

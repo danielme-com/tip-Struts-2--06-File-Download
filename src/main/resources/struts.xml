@@ -5,30 +5,45 @@
 <struts>
 
 	<constant name="struts.devMode" value="true" />
-	<constant name="struts.custom.i18n.resources" value="global" />
-
+	<constant name="struts.custom.i18n.resources" value="global" />	
 
 	<package name="default" namespace="/" extends="struts-default">
+	
+	<global-results>
+		<result name="input">/jsp/form.jsp</result>
+	</global-results>
 
-		<action name="fileDownloadAction" class="com.danielme.tips.struts2.actions.FileDownloadAction">
-			
-			<result name="form">/jsp/form.jsp</result>
-			
-			<result name ="stream" type="stream">
-			    <!-- nombre del atributo del action que contiene el InputStream a devolver, por defecto se considera inputStream -->
+		<action name="fileDownload"
+			class="com.danielme.tips.struts2.actions.FileDownloadAction">
+		</action>
+
+		<action name="fileDownloadResponse"
+			class="com.danielme.tips.struts2.actions.FileDownloadAction" method="response"/>
+
+
+		<action name="fileDownloadStream"
+			class="com.danielme.tips.struts2.actions.FileDownloadAction" method="resultStream">
+
+
+			<result name="stream" type="stream">
+				<!-- nombre del atributo del action que contiene el InputStream a devolver, 
+					por defecto se considera inputStream -->
 				<param name="inputName">pdf</param>
-			    <!-- nombre del atributo con el tamaño del fichero -->				
+				<!-- nombre del atributo con el tamaño del fichero -->
 				<param name="contentLength">${contentLength}</param>
-				<!-- mime type del fichero, también se podría usar un atributo. Por defecto es text/plain -->							
-			    <param name="contentType">application/pdf</param>
-			    <!-- el content disposition del header del response. En este ejemplo vamos a usar un valor fijo pero tomando como nombre 
-			    de archivo un atributo del action -->							
-			    <param name="contentDisposition">inline;filename="${contentName}"</param>
-			    <!-- Por defecto es true y habilita el "cacheo" del fichero en el navegador. Si este puede ser variable conviene deshabilitarlo
-			    para evitar posibles efectos colaterales -->
-			    <param name="allowCaching">false</param><!-- default true -->			    
+				<!-- mime type del fichero, también se podría usar un atributo. Por defecto 
+					es text/plain -->
+				<param name="contentType">application/pdf</param>
+				<!-- el content disposition del header del response. En este ejemplo 
+					vamos a usar un valor fijo pero tomando como nombre de archivo un atributo 
+					del action -->
+				<param name="contentDisposition">inline;filename="${contentName}"</param>
+				<!-- Por defecto es true y habilita el "cacheo" del fichero en el navegador. 
+					Si este puede ser variable conviene deshabilitarlo para evitar posibles efectos 
+					colaterales -->
+				<param name="allowCaching">false</param><!-- default true -->
 			</result>
-			
+
 		</action>
 
 	</package>
